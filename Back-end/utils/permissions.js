@@ -1,0 +1,10 @@
+const isWorkspaceOwner = (userId, workspace) =>{
+    return workspace.owner.toString() === userId
+}
+
+const isWorkspaceMember = ( userId, workspace) =>{
+    const isOwner = isWorkspaceOwner(userId, workspace)
+    const isMember = workspace.members.some(memberId => memberId.toString() === userId.toString())
+
+    return isOwner || isMember
+}
