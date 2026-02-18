@@ -14,7 +14,7 @@ const isWorkspaceMember = (userId, workspace) =>{
 }
 
 const canViewWorkspace = (userId, workspace) =>{
-    return isWorkspaceMember(workspace, userId)
+    return isWorkspaceMember(userId, workspace)
 }
 
 const canDeleteWorkspace = (userId, workspace) =>{

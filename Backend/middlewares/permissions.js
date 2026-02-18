@@ -8,7 +8,7 @@ const { isWorkspaceOwner, isWorkspaceMember, isNoteCreator } = require('../utils
 // - Is the current user a member or owner?
 const requireWorkspaceMember = async (req, res, next) =>{
     try{
-        const workspaceId = req.params.workspaceId
+    const workspaceId = req.params.workspaceId
     const userId = req.user.id
 
     const workspace = await Workspace.findById(workspaceId)
