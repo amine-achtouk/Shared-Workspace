@@ -6,9 +6,9 @@ const { createNote, getNotesByWorkspace, updateNote, deleteNote } = require('../
 
 router.use(authMiddleware)
 
-router.post('/', requireWorkspaceMember, createNote)
-router.get('/', requireWorkspaceMember, getNotesByWorkspace)
-router.put('/:noteId', requireWorkspaceMember, ensureNotePermission, updateNote)
-router.delete('/:noteId', requireWorkspaceMember, ensureNotePermission, deleteNote)
+router.post('/:workspaceId', requireWorkspaceMember, createNote)
+router.get('/:workspaceId', requireWorkspaceMember, getNotesByWorkspace)
+router.put('/:workspaceId/:noteId', requireWorkspaceMember, ensureNotePermission, updateNote)
+router.delete('/:workspaceId/:noteId', requireWorkspaceMember, ensureNotePermission, deleteNote)
 
 module.exports = router

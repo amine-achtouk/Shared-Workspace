@@ -1,6 +1,6 @@
 const Workspace = require('../models/Workspace')
 
-const createWorkSpace = async (req, res) =>{
+const createWorkspace = async (req, res) =>{
     try{
 
     }
@@ -9,3 +9,34 @@ const createWorkSpace = async (req, res) =>{
     }
 }
 
+
+const getMyWorkspaces = async (req, res) =>{
+    try{
+
+    }
+    catch(err){
+
+    }
+}
+
+const updateWorkspace = async (req, res) =>{
+    try{
+
+    }
+    catch(err){
+
+    }
+}
+
+
+const deleteWorkspace = async (req, res) =>{
+    try{
+
+    }
+    catch(err){
+
+    }
+}
+
+
+module.exports = { createWorkspace, getMyWorkspaces, updateWorkspace, deleteWorkspace}

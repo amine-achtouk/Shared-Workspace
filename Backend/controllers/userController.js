@@ -18,7 +18,7 @@ const registerUser = async (req, res) =>{
             password : hashPassword
         })
 
-        const token = jwt.sign({id : newUser._id}, process.env.JWT_SECRET, {expiresIn : '7d'})
+        const token = jwt.sign({id : newUser._id}, process.env.JWT_SECRET, {expiresIn : '3d'})
 
         res.status(201).json({
             message : 'Successfully created User',
@@ -28,7 +28,7 @@ const registerUser = async (req, res) =>{
         })
     }
     catch(err){
-        res.status(500).json({ message : 'Error Server'})
+        res.status(500).json({ message : 'Server Error'})
     }
 }
 
@@ -45,16 +45,16 @@ const loginUser = async (req, res) =>{
         const isMatchPassword = await bcrypt.compare(password, findUser.password)
         if(!isMatchPassword) return res.status(401).json({ message : 'Invalid email or password'})
 
-        const token = jwt.sign({id : findUser._id}, process.env.JWT_SECRET, {expiresIn : '7d'})
+        const token = jwt.sign({id : findUser._id}, process.env.JWT_SECRET, {expiresIn : '3d'})
 
         res.status(200).json({
-            message : 'Successefuly to Login',
+            message : 'Successfully logged in',
             token : token,
             name : findUser.username
         })
     }
     catch(err){
-        res.status(500).json({ message : 'Error Server'})
+        res.status(500).json({ message : 'Server Error'})
     }
 }
 
@@ -68,12 +68,13 @@ const getMe = async (req, res) =>{
         res.status(200).json({
             user : {
                 id : user._id,
-                name : user.username
+                name : user.username,
+                email : user.email
             }
         })
     }
     catch(err){
-        res.status(500).json({ message : 'Error Server'})
+        res.status(500).json({ message : 'Server Error'})
     }
 }
 
