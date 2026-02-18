@@ -17,6 +17,10 @@ const canViewWorkspace = (userId, workspace) =>{
     return isWorkspaceMember(userId, workspace)
 }
 
+const canUpdateWorkspace = (userId, workspace) =>{
+    return isWorkspaceOwner(userId, workspace)
+}
+
 const canDeleteWorkspace = (userId, workspace) =>{
     return isWorkspaceOwner(userId, workspace)
 }
@@ -57,6 +61,7 @@ module.exports = {
     isWorkspaceOwner,
     isWorkspaceMember,
     canViewWorkspace,
+    canUpdateWorkspace,
     canDeleteWorkspace,
     canAddMembers,
     canRemoveMembers,
