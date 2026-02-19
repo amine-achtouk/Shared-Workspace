@@ -37,7 +37,7 @@ const getMyWorkspaces = async (req, res) =>{
 
 const updateWorkspace = async (req, res) =>{
     try{
-        const workspace = req.params.workspaceId
+        const workspace = req.workspace
         const { name } = req.body;
 
         if (!name) return res.status(400).json({ message: 'Name is required' })
@@ -55,7 +55,7 @@ const updateWorkspace = async (req, res) =>{
 
 const deleteWorkspace = async (req, res) =>{
     try{
-        const workspace = req.params.workspaceId
+        const workspace = req.workspace
 
         await Note.deleteMany({ workspace : workspace._id})
         await workspace.deleteOne()
