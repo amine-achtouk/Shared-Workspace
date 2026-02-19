@@ -7,7 +7,6 @@ const { canUpdateWorkspace, canDeleteWorkspace, canAddMembers, canRemoveMembers 
 const createWorkspace = async (req, res) =>{
     try{
         const {name} = req.body
-        const owner = req.user.id
 
         if(!name) return res.status(400).json({ message: 'Name is required' });
 
@@ -38,17 +37,14 @@ const getMyWorkspaces = async (req, res) =>{
 
 const updateWorkspace = async (req, res) =>{
     try{
-        const workspaceId = req.params.workspaceId
-        const userId = req.user.id
+        const workspace = req.params.workspaceId
         const { name } = req.body;
 
-        const workspace = await Workspace.findById(workspaceId)
-        if(!workspace) return res.status(404).json({ message: 'Workspace not Found' })
-
-        if(!canUpdateWorkspace(userId, workspace)) return res.status(403).json({ message: 'Access denied' })
+        if (!name) return res.status(400).json({ message: 'Name is required' })
 
         workspace.name = name;
         await workspace.save();
+
         res.status(200).json({ message: 'Workspace Updated successfully', workspace })
     }
     catch(err){
@@ -59,17 +55,12 @@ const updateWorkspace = async (req, res) =>{
 
 const deleteWorkspace = async (req, res) =>{
     try{
-        const workspaceId = req.params.workspaceId
-        const userId = req.user.id
+        const workspace = req.params.workspaceId
 
-        const workspace = await Workspace.findById(workspaceId)
-        if(!workspace) return res.status(404).json({ message: 'Workspace not Found' })
-
-        if(!canDeleteWorkspace(userId, workspace)) return res.status(403).json({ message: 'Access denied' })
         await Note.deleteMany({ workspace : workspace._id})
         await workspace.deleteOne()
 
-        res.status(200).json({ message: 'Workspace deleted successfully', workspaceId  })
+        res.status(200).json({ message: 'Workspace deleted successfully' })
     }
     catch(err){
         res.status(500).json({ message : 'Server Error'})
@@ -78,11 +69,9 @@ const deleteWorkspace = async (req, res) =>{
 
 const addMembers = async (req, res) =>{
     try{
-        const userId = req.user.id
         const workspace = req.workspace
         const { email } = req.body
 
-        if(!canAddMembers(userId, workspace)) return res.status(403).json({ message: 'Access denied' })
 
         const userToAdd = await User.findOne({ email})
         if (!userToAdd) return res.status(404).json({ message: 'User not found' })
@@ -102,11 +91,8 @@ const addMembers = async (req, res) =>{
 
 const removeMembers = async (req, res) =>{
     try{
-        const userId = req.user.id
         const workspace = req.workspace
         const { email } = req.body
-
-        if(!canRemoveMembers(userId, workspace)) return res.status(403).json({ message: 'Access denied' })
 
         const userToRemove = await User.findOne({ email})
         if (!userToRemove) return res.status(404).json({ message: 'User not found' })
