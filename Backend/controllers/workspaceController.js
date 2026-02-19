@@ -1,7 +1,6 @@
 const Workspace = require('../models/Workspace')
 const Note = require('../models/Note')
 const User = require('../models/User')
-const { canUpdateWorkspace, canDeleteWorkspace, canAddMembers, canRemoveMembers } = require('../utils/workspace.Note.Rules')
 
 
 const createWorkspace = async (req, res) =>{
