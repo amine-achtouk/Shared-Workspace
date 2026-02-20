@@ -30,6 +30,7 @@ const getNotesByWorkspace = async (req, res ) =>{
 }
 
 
+
 const updateNote = async (req, res ) =>{
     try{
         const note = req.note
