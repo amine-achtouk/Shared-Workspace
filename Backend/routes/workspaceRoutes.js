@@ -12,6 +12,6 @@ router.put('/:workspaceId', requireWorkspaceMember ,requireWorkspaceOwner ,updat
 router.delete('/:workspaceId', requireWorkspaceMember ,requireWorkspaceOwner ,deleteWorkspace)
 // For Members
 router.post('/:workspaceId/members', requireWorkspaceMember, requireWorkspaceOwner, addMembers)
-router.delete('/:workspaceId/members', requireWorkspaceMember, requireWorkspaceOwner, removeMembers)
+router.delete('/:workspaceId/members/:memberId', requireWorkspaceMember, requireWorkspaceOwner, removeMembers)
 
 module.exports = router

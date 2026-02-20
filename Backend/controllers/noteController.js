@@ -9,7 +9,7 @@ const createNote = async (req, res ) =>{
             title,
             content,
             createdBy : req.user.id,
-            workspace : workspace._id
+            workspace : req.workspace._id
         })
         res.status(201).json({note})
     }
@@ -20,8 +20,8 @@ const createNote = async (req, res ) =>{
 
 const getNotesByWorkspace = async (req, res ) =>{
     try{
-        const workspace = req.workspace
-        const notes = await Note.find({ workspace: req.workspace._id }).populate('createdBy', 'username email')
+        const { _id } = req.workspace
+        const notes = await Note.find({ workspace: _id }).populate('createdBy', 'username email')
         res.status(200).json({ notes })
     }
     catch{
